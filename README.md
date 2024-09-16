@@ -109,6 +109,19 @@ if ($scannerResult->isBomb()) {
 }
 ```
 
+or
+
+```php
+$scanner->addEngine(new PngBombEngine(1920));
+```
+
+or
+
+```php
+$scanner->addEngine(new PngBombEngine(1920, 1080));
+```
+
+
 ## License
 
 MIT

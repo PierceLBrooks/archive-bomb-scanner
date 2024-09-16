@@ -11,6 +11,22 @@ use SplFileObject;
  */
 final class PngBompEngine implements EngineInterface
 {
+
+    private $maxWidth;
+    private $maxHeight;
+
+    /**
+     * The constructor.
+     *
+     * @param int $maxRatio The max Bomb size ratio (Original size / Compressed size)
+     */
+    public function __construct(int $maxWidth = 10000, int $maxHeight=null)
+    {
+        if (!$maxHeight) $maxHeight = $maxWidth;
+        $this->maxWidth = $maxWidth;
+        $this->maxHeight = $maxHeight;
+    }
+
     /**
      * Scan for PNG bomb.
      *
@@ -46,7 +62,7 @@ final class PngBompEngine implements EngineInterface
         $width = unpack('N', (string)$file->fread(4))[1];
         $height = unpack('N', (string)$file->fread(4))[1];
 
-        if ($width > 10000 || $height > 10000) {
+        if ($width > $this->maxWidth || $height > $this->maxHeight) {
             // Invalid image
             return new BombScannerResult(true);
         }
