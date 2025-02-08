@@ -51,6 +51,7 @@ final class ArchiveBombScannerTest extends TestCase
 
         // In memory scanning
         $tempFile = new SplTempFileObject();
+        file_put_contents('php://stdout', print_r($filename, TRUE));
         $tempFile->fwrite((string)file_get_contents($filename));
         $actual = $scanner->scanFile($file);
 
